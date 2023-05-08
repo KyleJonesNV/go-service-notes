@@ -1,0 +1,64 @@
+# This workflow will build a golang project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+name: Go
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  S3_BUCKET: "hands-on-packt"
+  PACKAGE: 'github.com/KyleJonesNV/go-service-hands-on'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: 1.19
+
+    - name: pre_build
+      run: | 
+        go get -t ./...
+        go vet .
+        go test .
+
+    - name: build
+      run: |
+        GOOS=linux go build -o main
+        zip deployment.zip main
+
+    - name: default deploy
+      uses: aws-actions/configure-aws-credentials@v1-node16
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: upload zip
+      run: aws lambda update-function-code --function-name go-service-notes \--zip-file fileb://./deployment.zip --region ${{ secrets.AWS_REGION }}
+
+  # golangci:
+  #   name: lint
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/setup-go@v4
+  #       with:
+  #         go-version: '1.17'
+  #         cache: false
+  #     - uses: actions/checkout@v3
+  #     - name: golangci-lint
+  #       uses: golangci/golangci-lint-action@v3
+  #       with:
+  #         # Optional: version of golangci-lint to use in form of v1.2 or v1.2.3 or `latest` to use the latest version
+  #         version: v1.29

@@ -1,0 +1,50 @@
+definitions:
+  handlers.ErrorBody:
+    properties:
+      error:
+        type: string
+    type: object
+  movies.Movie:
+    properties:
+      cover:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /getAll:
+    get:
+      consumes:
+      - application/json
+      description: Get all movies
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/movies.Movie'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.ErrorBody'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.ErrorBody'
+      summary: Get all movies
+      tags:
+      - movies
+swagger: "2.0"
