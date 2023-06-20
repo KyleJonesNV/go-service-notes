@@ -111,20 +111,6 @@ func GetAllForUser(req *http.Request) Response {
 	return Response{http.StatusOK, topics}
 }
 
-// func GetByID(req *http.Request, p gin.Params) Response {
-// 	id := p.ByName("id")
-
-// 	movie, err := movies.GetByID(req.Context(), id)
-// 	if err != nil {
-// 		return Response{http.StatusInternalServerError, ErrorBody{err.Error()}}
-// 	}
-
-// 	return Response{
-// 		http.StatusOK,
-// 		movie,
-// 	}
-// }
-
 func InsertTopic(req *http.Request) Response {
 	var insertTopicRequest = InsertTopicRequest{}
 
@@ -281,8 +267,6 @@ func GetAllNotes(req *http.Request) Response {
 			ErrorBody{ErrInvalidPayload},
 		}
 	}	
-
-	
 
 	topics, err := notes.GetUserTopicByTitle(req.Context(), getAllNotesRequest.UserID, getAllNotesRequest.Title)
 	if err != nil {

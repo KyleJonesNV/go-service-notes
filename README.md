@@ -1,28 +1,47 @@
-run build script
+## Backend markdown notes app
 
-`sh scripts/build.sh`
+This is a personal project I built to experiment with [Next.js](https://nextjs.org/) and [AWS](https://aws.amazon.com/) services.
+This application sets up a REST API for fetching and updating notes for the application.
+Is built with go as this is my current most used backend langauge.
 
-Update lambda
+## Frontend repo
 
-`aws lambda update-function-code --function-name go-service-notes \
-    --zip-file fileb://./deployment.zip \
-    --region eu-west-1`
+The frontend of the application can be found [here](https://github.com/KyleJonesNV/frontend-notes)
 
-Update lambda using S3 bucket
+## Access the API
 
-`aws lambda update-function-code --function-name go-service-notes \
-    --s3-bucket notes-service-packt \
-    --s3-key deployment.zip \
-    --region eu-west-1`
+The API currently exposing the following endpoints
+# /getAllForUser
+# /insertTopic
+# /deleteTopic
+# /insertNote
+# /getAllNotes
+# /deleteNote
 
-Insert Topic
+The API is hosted in AWS here:
 
-https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/insertTopic
+`https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging`
 
-curl -sX POST https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/insertTopic -d '{"userID": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf", "title": "something interesting"}'
+I have also setup a test user with id: 
 
-curl -sX POST https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/getAllForUser -d '{"userID": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf"}'
+`1d7ee7f0-36f5-4e33-a766-26981e62d9cf`
 
-curl -sX POST https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/getAllForUser -d '{"userID": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf"}'
+If you have Curl installed you can test getting all topics for the test user using:
 
-curl -sX DELETE https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/deleteNote -d '{"userID": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf", "title": "Fun stuff", "note": "Building fun stuff"}'
+`curl -sX POST https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/getAllForUser -d '{"id": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf"}'`
+
+Insert a new topic with:
+
+`curl -sX POST https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/insertTopic -d '{"userID": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf", "title": "something interesting"}'`
+
+Delete the new topic with:
+
+`curl -sX DELETE https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/deleteTopic -d '{"userID": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf", "title": "something interesting"}'`
+
+## Improvements / things I would like to do next
+
+<ol>
+  <li>Export API to swagger file for easier communication</li>
+  <li>Better error handling for incorrect inputs</li>
+  <li>More tests for each endpoint</li>
+</ol> 
