@@ -6,19 +6,24 @@ This application sets up a REST API for fetching and updating notes for the appl
 
 The backend is built with go as this is my current most used backend langauge.
 
+
 ## Frontend repo
 
 The frontend of the application can be found [here](https://github.com/KyleJonesNV/frontend-notes)
 
+
 ## Access the API
 
 The API currently exposing the following endpoints
-### /getAllForUser
-### /insertTopic
-### /deleteTopic
-### /insertNote
-### /getAllNotes
-### /deleteNote
+<ol>
+  <li>/getAllForUser</li>
+  <li>/insertTopic</li>
+  <li>/deleteTopic</li>
+  <li>/insertNote</li>
+  <li>/getAllNotes</li>
+  <li>/deleteNote</li>
+</ol> 
+
 
 The API is hosted in AWS here:
 
@@ -46,10 +51,12 @@ Delete the new topic with:
 curl -sX DELETE https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/deleteTopic -d '{"userID": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf", "title": "something interesting"}'
 ```
 
+
 ## Improvements / things I would like to do next
 
 <ol>
   <li>Export API to swagger file for easier communication</li>
   <li>Better error handling for incorrect inputs</li>
   <li>More tests for each endpoint</li>
+  <li>Support for running locally with docker</li>
 </ol> 
