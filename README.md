@@ -1,8 +1,10 @@
 ## Backend markdown notes app
 
 This is a personal project I built to experiment with [Next.js](https://nextjs.org/) and [AWS](https://aws.amazon.com/) services.
+
 This application sets up a REST API for fetching and updating notes for the application.
-Is built with go as this is my current most used backend langauge.
+
+The backend is built with go as this is my current most used backend langauge.
 
 ## Frontend repo
 
@@ -11,12 +13,12 @@ The frontend of the application can be found [here](https://github.com/KyleJones
 ## Access the API
 
 The API currently exposing the following endpoints
-# /getAllForUser
-# /insertTopic
-# /deleteTopic
-# /insertNote
-# /getAllNotes
-# /deleteNote
+### /getAllForUser
+### /insertTopic
+### /deleteTopic
+### /insertNote
+### /getAllNotes
+### /deleteNote
 
 The API is hosted in AWS here:
 
@@ -28,15 +30,21 @@ I have also setup a test user with id:
 
 If you have Curl installed you can test getting all topics for the test user using:
 
-`curl -sX POST https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/getAllForUser -d '{"id": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf"}'`
+```
+curl -sX POST https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/getAllForUser -d '{"id": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf"}'
+```
 
 Insert a new topic with:
 
-`curl -sX POST https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/insertTopic -d '{"userID": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf", "title": "something interesting"}'`
+```
+curl -sX POST https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/insertTopic -d '{"userID": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf", "title": "something interesting"}'
+```
 
 Delete the new topic with:
 
-`curl -sX DELETE https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/deleteTopic -d '{"userID": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf", "title": "something interesting"}'`
+```
+curl -sX DELETE https://ifhrxwl601.execute-api.eu-west-1.amazonaws.com/staging/deleteTopic -d '{"userID": "1d7ee7f0-36f5-4e33-a766-26981e62d9cf", "title": "something interesting"}'
+```
 
 ## Improvements / things I would like to do next
 
