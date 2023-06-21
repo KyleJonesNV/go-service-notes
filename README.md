@@ -14,7 +14,7 @@ The frontend of the application can be found [here](https://github.com/KyleJones
 
 ## Access the API
 
-The API currently exposing the following endpoints
+The API is currently exposing the following endpoints
 <ol>
   <li>/getAllForUser</li>
   <li>/insertTopic</li>
